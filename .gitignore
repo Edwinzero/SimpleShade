@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+/.vs/SimpleShade
+/SimpleShade/Depends/glm
+/SimpleShade/SimpleShade/x64/Debug
+/SimpleShade/x64/Debug
+/SimpleShade/.vs/SimpleShade/v15
+/SimpleShade/Depends/GL
