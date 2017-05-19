@@ -54,7 +54,8 @@ void CleanFBO(GLfbo &obj) {
 
 #define ATTRIBUTE_LAYOUT_INDEX_POSITION 0
 #define ATTRIBUTE_LAYOUT_INDEX_NORMAL   1
-#define ATTRIBUTE_LAYOUT_INDEX_UV		2
+#define ATTRIBUTE_LAYOUT_INDEX_COLOR	2
+#define ATTRIBUTE_LAYOUT_INDEX_UV		3
 class GLmem {
 public:
 	GLuint vao;
@@ -66,8 +67,12 @@ public:
 	GLuint texID;
 	GLuint depID;
 
+	// for point cloud
 	size_t m_numIndices;
 	size_t m_numVerts;
+	// for mesh
+	size_t m_numTriangles;
+	size_t m_materialID;
 public:
 	GLmem() : vao(-1), vbo(-1), ebo(-1), texID(-1), depID(-1) {}
 	~GLmem() {
@@ -79,6 +84,7 @@ public:
 	}
 };
 
+// For PointCloudData
 void CreateGLmem(GLmem &m, std::vector<float> vertices, std::vector<float> normals, std::vector<float> uvs, std::vector<unsigned int> indices) {
 	size_t numVertices = vertices.size() / 3;
 	size_t numNormals = normals.size() / 3;
@@ -125,6 +131,7 @@ void CreateGLmem(GLmem &m, std::vector<float> vertices, std::vector<float> norma
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
+// For PointCloudData
 template <class T>
 void CreateGLmem(GLmem &m, std::vector<T> vertices, std::vector<T> normals) {
 	size_t numVertices = vertices.size();
@@ -159,6 +166,7 @@ void CreateGLmem(GLmem &m, std::vector<T> vertices, std::vector<T> normals) {
 
 }
 
+// For PointCloudData
 template <class T>
 void CreateGLmem(GLmem &m, std::vector<T> vertices, std::vector<T> normals, std::vector<T> colors) {
 	size_t numVertices = vertices.size();
@@ -201,6 +209,40 @@ void CreateGLmem(GLmem &m, std::vector<T> vertices, std::vector<T> normals, std:
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 
+}
+
+
+// For mesh (for tinyobj pos(3float), normal(3float), color(3float))
+void CreateGLmem(GLmem &m, std::vector<float> verticeBuf) {
+	//glGenVertexArrays(1, &m.vao);
+	//glBindVertexArray(m.vao);
+	// cpy data to vbo
+	glGenBuffers(1, &m.vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, m.vbo);
+	glBufferData(GL_ARRAY_BUFFER, verticeBuf.size() * sizeof(float), &verticeBuf.at(0),
+		GL_STATIC_DRAW);
+	// set pointer to each attribute
+	int numData = (int)verticeBuf.size() / (3 + 3 + 3 + 2);
+	int stride = 11; // 3 + 3 + 3 + 2;
+	if (0) {
+		// position
+		glEnableVertexAttribArray(ATTRIBUTE_LAYOUT_INDEX_POSITION);
+		glVertexAttribPointer(ATTRIBUTE_LAYOUT_INDEX_POSITION, 3, GL_FLOAT, GL_FALSE, stride * sizeof(float), (GLvoid*)0); // bind vao to vbo
+																														   // normal
+		glEnableVertexAttribArray(ATTRIBUTE_LAYOUT_INDEX_NORMAL);
+		glVertexAttribPointer(ATTRIBUTE_LAYOUT_INDEX_NORMAL, 3, GL_FLOAT, GL_FALSE, stride * sizeof(float), (GLvoid*)(3 * sizeof(float))); // bind vao to vbo
+																																		   // color
+		glEnableVertexAttribArray(ATTRIBUTE_LAYOUT_INDEX_COLOR);
+		glVertexAttribPointer(ATTRIBUTE_LAYOUT_INDEX_COLOR, 3, GL_FLOAT, GL_FALSE, stride * sizeof(float), (GLvoid*)(6 * sizeof(float))); // bind vao to vbo
+																																		  // uv
+		glEnableVertexAttribArray(ATTRIBUTE_LAYOUT_INDEX_UV);
+		glVertexAttribPointer(ATTRIBUTE_LAYOUT_INDEX_UV, 2, GL_FLOAT, GL_FALSE, stride * sizeof(float), (GLvoid*)(9 * sizeof(float))); // bind vao to vbo
+
+	}
+	
+	// Reset State
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//glBindVertexArray(0);
 }
 
 void CreateCanvas(GLmem &m) {

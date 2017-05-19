@@ -16,6 +16,12 @@
     <Filter Include="Resource Files\IMGUI">
       <UniqueIdentifier>{bb0d7cd4-87db-41cd-9ac2-4b365e94f085}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\3rdParty">
+      <UniqueIdentifier>{1b24da64-da13-443c-adea-e523d8d736da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{b11416ae-d2cd-451c-9b7a-d5e00d90e7ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -32,6 +38,15 @@
     </ClCompile>
     <ClCompile Include="IMGUI\imgui_impl_glut.cpp">
       <Filter>Resource Files\IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\hdrloader.cpp">
+      <Filter>Header Files\3rdParty</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\plyloader.cpp">
+      <Filter>Header Files\3rdParty</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\tiny_obj_loader.cc">
+      <Filter>Header Files\3rdParty</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -59,13 +74,31 @@
     <ClInclude Include="RenderPipeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shared\GLobjects.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="3rdParty\hdrloader.h">
+      <Filter>Header Files\3rdParty</Filter>
     </ClInclude>
-    <ClInclude Include="Shared\RenderUtils.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="3rdParty\plyloader.h">
+      <Filter>Header Files\3rdParty</Filter>
     </ClInclude>
     <ClInclude Include="Shared\camera.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared\GLobjects.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared\RenderUtils.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\tiny_obj_loader.h">
+      <Filter>Header Files\3rdParty</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\stb-master\stb_image.h">
+      <Filter>Header Files\3rdParty</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

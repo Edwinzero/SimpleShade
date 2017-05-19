@@ -122,6 +122,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="3rdParty\hdrloader.cpp" />
+    <ClCompile Include="3rdParty\plyloader.cpp" />
+    <ClCompile Include="3rdParty\tiny_obj_loader.cc" />
     <ClCompile Include="IMGUI\imgui.cpp" />
     <ClCompile Include="IMGUI\imgui_demo.cpp" />
     <ClCompile Include="IMGUI\imgui_draw.cpp" />
@@ -129,6 +132,10 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="3rdParty\hdrloader.h" />
+    <ClInclude Include="3rdParty\plyloader.h" />
+    <ClInclude Include="3rdParty\stb-master\stb_image.h" />
+    <ClInclude Include="3rdParty\tiny_obj_loader.h" />
     <ClInclude Include="IMGUI\imconfig.h" />
     <ClInclude Include="IMGUI\imgui.h" />
     <ClInclude Include="IMGUI\imgui_impl_glut.h" />
@@ -136,6 +143,8 @@
     <ClInclude Include="IMGUI\stb_rect_pack.h" />
     <ClInclude Include="IMGUI\stb_textedit.h" />
     <ClInclude Include="IMGUI\stb_truetype.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="RenderPipeline.h" />
     <ClInclude Include="Shared\camera.h" />
     <ClInclude Include="Shared\GLobjects.h" />

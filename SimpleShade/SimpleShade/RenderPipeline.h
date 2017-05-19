@@ -8,16 +8,10 @@
 #include "imgui.h"
 #include "imgui_impl_glut.h"
 #include <camera.h>
-#include <GLobjects.h>
+#include <Model.h>
 #include <RenderUtils.h>
-
+#include <ModelLoader.h>
 #include <plyloader.h>
-
-#define MOCA	0
-#define BF		0
-#define PLY_REG 0
-#define TEXTURE 0
-#define SHANG   1
 
 using namespace std;
 unsigned int screenWidth = 1280;
@@ -30,6 +24,8 @@ bool show_cameraInfo_window = false;
 bool show_instruction_window = false;
 
 Camera camera;
+
+Model model;
 
 // CL programs Key: V
 bool reComplieKernel = false;
@@ -142,7 +138,14 @@ void DrawScene3D() {
 		}
 		glMatrixMode(GL_MODELVIEW);
 		glPopMatrix();
-	
+
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		{
+			model.Draw();
+		}
+		glMatrixMode(GL_MODELVIEW);
+		glPopMatrix();
 		//glPopAttrib();
 	}
 }
@@ -235,7 +238,7 @@ void Render(void)
 		glPopMatrix();
 	}
 
-	if(1){
+	if(0){
 		// draw gui, seems unnecessary to push/pop matrix and attributes
 		//glPushAttrib(GL_ALL_ATTRIB_BITS);
 		glMatrixMode(GL_MODELVIEW);
@@ -470,6 +473,13 @@ void Init_RenderScene(void) {
 		camera.apertureRadius = 0.01f;
 		camera.focalDistance = 100.0f;
 		camera.radius = 100.0f;
+	}
+
+	// load obj model
+	{
+		ObjModelLoader objloader;
+		objloader.LoadOBJtoModel("../Model/crytek-sponza/sponza.obj", model);
+		
 	}
 }
 

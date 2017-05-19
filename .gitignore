@@ -36,3 +36,5 @@
 /SimpleShade/x64/Debug
 /SimpleShade/.vs/SimpleShade/v15
 /SimpleShade/Depends/GL
+/SimpleShade/Model
+/SimpleShade/SimpleShade/3rdParty/stb-master
